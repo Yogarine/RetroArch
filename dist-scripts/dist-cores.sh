@@ -280,6 +280,9 @@ for f in `ls -v *_${platform}.${EXT}`; do
       mkdir -p ../pkg/emscripten/
       mv -f ../${name}_libretro.js ../pkg/emscripten/${name}_libretro.js
       mv -f ../${name}_libretro.wasm ../pkg/emscripten/${name}_libretro.wasm
+      if [ -f ../${name}_libretro.wast ] ; then
+         mv -f ../${name}_libretro.wast ../pkg/emscripten/${name}_libretro.wast
+      fi
       if [ $pthread != 0 ] ; then
          mv -f ../pthread-main.js ../pkg/emscripten/pthread-main.js
       fi

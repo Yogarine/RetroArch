@@ -115,11 +115,13 @@ static void emscripten_mainloop(void)
 void cmd_savefiles(void)
 {
    event_save_files();
+   task_queue_wait(NULL, NULL);
 }
 
 void cmd_save_state(void)
 {
    command_event(CMD_EVENT_SAVE_STATE, NULL);
+   task_queue_wait(NULL, NULL);
 }
 
 void cmd_load_state(void)
@@ -130,6 +132,7 @@ void cmd_load_state(void)
 void cmd_take_screenshot(void)
 {
    command_event(CMD_EVENT_TAKE_SCREENSHOT, NULL);
+   task_queue_wait(NULL, NULL);
 }
 
 static void frontend_emscripten_get_env(int *argc, char *argv[],
@@ -214,6 +217,21 @@ static void frontend_emscripten_get_env(int *argc, char *argv[],
       if (!string_is_empty(dir_path))
          path_mkdir(dir_path);
    }
+}
+
+void cmd_reset(void)
+{
+   command_event(CMD_EVENT_RESET, NULL);
+}
+
+void cmd_pause(void)
+{
+   command_event(CMD_EVENT_PAUSE, NULL);
+}
+
+void cmd_unpause(void)
+{
+   command_event(CMD_EVENT_UNPAUSE, NULL);
 }
 
 int main(int argc, char *argv[])
